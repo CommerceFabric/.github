@@ -1,4 +1,4 @@
-# CommerceFabric
+![CommerceFabric Logo](images/CommerceFabricLogo.png)
 
 CommerceFabric is a portfolio project exploring distributed systems and microservice architecture using a production-inspired eCommerce domain. The goal is not just to build an online store, but to demonstrate architectural decision-making around service boundaries, data consistency, resilience, observability, and scalability.
 
