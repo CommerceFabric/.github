@@ -19,8 +19,8 @@ Core services include, for more information on each services tech stack, please 
 * TODO - **NotificationService** – Event-driven user notifications (extension eg send email on order completion/failure)
 * TODO - **PaymentService** – Payment processing and validation (maybe extension - but payment will be spoofed)
 
-* [**web-storefront**](https://github.com/CommerceFabric/web-storefront) - Angular Web Portal for the storefront, allowing users to login and make orders (planned)
-* TODO - **desktop-storefront** - WPF Desktop Application for the storefront, duplicating logic of the web storefront (extension)
+* [**Storefront WebApp**](https://github.com/CommerceFabric/web-storefront) - Angular Web Portal for the storefront, allowing users to login and make orders (planned)
+* TODO - **Storefront Desktop App** - WPF Desktop Application for the storefront, duplicating logic of the web storefront (extension)
 
 * TODO - **web-admin** - Admin web-portal to allow admins to add new products, manage stock, etc.
 * TODO - **infra-observability** - Aspire/Grafana web portal to view health and status of the entire system
