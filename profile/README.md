@@ -13,7 +13,7 @@ Each service is designed around a clear bounded context and communicates with ot
 Core services include, for more information on each services tech stack, please click the links associated:
 
 * [**UserService**](https://github.com/CommerceFabric/service-user/) – Authentication, user registration, identity management, and token issuance
-* TODO - **ProductService** – Product catalogue and querying (planned)
+* [**ProductService**](https://github.com/CommerceFabric/service-products) – Product catalogue and querying (planned)
 * TODO - **OrderService** – Order creation, state transitions, and lifecycle management (planned)
 * TODO - **InventoryService** – Stock levels and reservation logic (extension)
 * TODO - **NotificationService** – Event-driven user notifications (extension eg send email on order completion/failure)
@@ -22,8 +22,8 @@ Core services include, for more information on each services tech stack, please 
 * [**Storefront WebApp**](https://github.com/CommerceFabric/web-storefront) - Angular Web Portal for the storefront, allowing users to login and make orders (planned)
 * TODO - **Storefront Desktop App** - WPF Desktop Application for the storefront, duplicating logic of the web storefront (extension)
 
-* TODO - **web-admin** - Admin web-portal to allow admins to add new products, manage stock, etc.
-* TODO - **infra-observability** - Aspire/Grafana web portal to view health and status of the entire system
+* TODO - **Admin Web Portal** - Admin web-portal to allow admins to add new products, manage stock, etc.
+* TODO - **Service Health Portal** - Aspire/Grafana web portal to view health and status of the entire system
 
 An architecture diagram and ERD will be added as the system evolves.
 
