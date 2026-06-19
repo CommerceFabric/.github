@@ -48,7 +48,7 @@ This project intentionally explores polyglot persistence to demonstrate real-wor
 Services communicate using a mix of:
 
 * Synchronous HTTP APIs for direct queries and commands
-* Asynchronous messaging for domain events and cross-service workflows
+* Asynchronous messaging for domain events and cross-service workflows (RabbitMQ)
 
 Long-running business processes (e.g. order → payment → fulfilment) are designed to use Saga-based coordination.
 
@@ -78,7 +78,7 @@ This approach is used to explore:
 * Database seeding automation per service
 * Transactional Outbox pattern implementation
 * Saga orchestration for distributed workflows
-* Idempotency handling for APIs and message consumers
+* Idempotency handling for APIs and message consumers (RedisCache?)
 
 ### Observability
 
