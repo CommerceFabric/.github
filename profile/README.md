@@ -6,6 +6,24 @@ CommerceFabric is a portfolio project exploring distributed systems and microser
 
 ## Architecture Overview
 
+```
+TODO : add to this diagram as I go
+
+API Gateway
+     |
+ ┌───┴───────────┐
+ │               │
+UserService   ProductService
+ │               │
+PostgreSQL      MySQL
+        \       /
+        Message Broker
+              |
+        OrderService
+              |
+           MongoDB
+```
+
 CommerceFabric is composed of independently deployable microservices representing distinct business capabilities within an eCommerce platform.
 
 Each service is designed around a clear bounded context and communicates with others via synchronous APIs and asynchronous messaging where appropriate.
@@ -33,13 +51,12 @@ An architecture diagram and ERD will be added as the system evolves.
 
 ### Service Autonomy
 
-Uses Clean Architecture within each microservice.
-
 Each microservice is independently designed, deployed, and maintained. This includes autonomy over:
 
 * Data storage technology
 * Data access strategy
 * Internal domain modelling
+* Service Architecture
 
 This project intentionally explores polyglot persistence to demonstrate real-world trade-offs between consistency, performance, and development complexity.
 
@@ -71,7 +88,7 @@ This approach is used to explore:
 
 ---
 
-## Planned Improvements After Finishing Core Plan
+# Planned Improvements After Finishing Core Plan
 
 ### Reliability & Consistency
 
