@@ -19,26 +19,6 @@ CommerceFabric is a portfolio project exploring distributed systems and microser
 
 * [Azure Infrastructure Setup](#azure-infrastructure-setup)
 
-  * [IMPORTANT Cost Control](#important-cost-control)
-  * [1. Select the Subscription](#1-select-the-subscription)
-  * [2. Create the Resource Group](#2-create-the-resource-group)
-  * [3. Create the Container Registry](#3-create-the-container-registry)
-  * [4. Register Required Resource Providers](#4-register-required-resource-providers)
-  * [5. Create the AKS Cluster](#5-create-the-aks-cluster)
-
-    * [Optional Monitoring](#optional-monitoring)
-  * [6. Connect to the AKS Cluster](#6-connect-to-the-aks-cluster)
-
-    * [Get Cluster Information](#get-cluster-information)
-    * [View `kubectl` Help](#view-kubectl-help)
-    * [Check the Current Cluster](#check-the-current-cluster)
-
-* [AKS Cost Management](#aks-cost-management)
-
-  * [Start When Required](#start-when-required)
-  * [Stop When Finished](#stop-when-finished)
-  * [Check Whether AKS Is Stopped](#check-whether-aks-is-stopped)
-
 * [Notes](#notes)
 
 ---
