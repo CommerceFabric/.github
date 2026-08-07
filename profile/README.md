@@ -46,7 +46,7 @@ This architecture promotes scalability, fault isolation, independent deployment,
 
 ## CI/CD Overview
 
-![CommerceFabric CI CD Pipeline Explained](images/CICDPipeline.png)
+![CommerceFabric CI CD Pipeline Explained](images/CiCdPipeline.png)
 
 - The CI/CD pipeline automates the process of building, testing, and deploying individual microservices to Azure Kubernetes Service (AKS).
 
