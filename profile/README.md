@@ -79,4 +79,5 @@ The goal of the project is to demonstrate practical cloud-native architecture pa
 
 - Add an Azure Front Door so it can be region balanced
 - Add Teraform scripts for Infrastructure as Code so the subscription + resources can be deleted when I'm not working on it to save money.
-- Add `[Authorize]` decorators to the required API methods so API methods themselves are protected (incase an attacker gains access to the internal ocelot api gateways IP) instead of relying on the auth being enforced on the external api gateway 
+- Add `[Authorize]` decorators to the required API methods so API methods themselves are protected (incase an attacker gains access to the internal ocelot api gateways IP) instead of relying on the auth being enforced on the external api gateway
+- Switch from AKS to ACA as it simplifies the complexity + allows for scale down to 0 to reduce costs
