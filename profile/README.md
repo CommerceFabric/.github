@@ -74,3 +74,9 @@ The architecture also explores common distributed systems patterns and challenge
 - Authentication and identity management with Microsoft Entra ID
 
 The goal of the project is to demonstrate practical cloud-native architecture patterns and the trade-offs involved in building and operating a microservices platform on Azure.
+
+## Future Directions
+
+- Add an Azure Front Door so it can be region balanced
+- Add Teraform scripts for Infrastructure as Code so the subscription + resources can be deleted when I'm not working on it to save money.
+- Add `[Authorize]` decorators to the required API methods so API methods themselves are protected (incase an attacker gains access to the internal ocelot api gateways IP) instead of relying on the auth being enforced on the external api gateway 
