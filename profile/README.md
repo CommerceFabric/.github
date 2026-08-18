@@ -2,11 +2,22 @@
 
 CommerceFabric is a portfolio project exploring distributed systems and microservice architecture using a production-inspired eCommerce domain. The goal is not just to build an online store, but to demonstrate architectural decision-making around service boundaries, data consistency, resilience, observability, and scalability.
 
+## CommerceFabric Project Demo 📽️
+
+[![CommerceFabric Project Demo](./images/demo/CommerceFabric_Video.png)](https://www.youtube.com/watch?v=e2fCbs92Rsk)
+
+**[View the CommerceFabric Project Demo Documentation](./docs/ProjectDemo.md)** for more screenshots, video demonstrations and other exciting stuff.
+
+
 ---
 
 ## Microservices Overview
 
-- TODO - put brief description of each service here and a link - then will have a readme in each with more details about the specific service, including its architecture, data model, and API endpoints.
+- [Infra-Platform](https://github.com/CommerceFabric/infra-platform) - This repository contains the infrastructure-as-code (IaC) scripts and configuration files for deploying the CommerceFabric platform on Microsoft Azure. It includes `Bicep` scripts, `Kubernetes` manifests, and other resources needed to provision and manage the cloud infrastructure.
+- [Service-Orders](https://github.com/CommerceFabric/service-orders) - This repository contains the Order Service, which manages order-related functionality such as order creation, order tracking, and order history. It integrates with the Product Service through RabbitMQ and Azure Service Bus to ensure product availability and consistency, and uses REST APIs to communicate with the User Service and Azure Entra ID respectively, to get user info.
+- [Service-User](https://github.com/CommerceFabric/service-user) - This repository contains the User Service, which manages user-related functionality such as authentication, profile management, and role-based access control. It integrates with Microsoft Entra ID and Microsoft Graph to handle identity and user information.
+- [Service-Products](https://github.com/CommerceFabric/service-products) - This repository contains the Product Service, which manages product-related functionality such as product catalog, inventory management, and pricing. It integrates with the Order Service to ensure product availability and consistency.
+- [Web-Storefront](https://github.com/CommerceFabric/web-storefront) - This repository contains the Angular-based web storefront for the CommerceFabric platform, providing the user interface for browsing products, managing the shopping cart, and placing orders.
 
 ---
 
@@ -38,27 +49,48 @@ This architecture promotes scalability, fault isolation, independent deployment,
 - **Caching:** Redis
 - **Resilience:** Polly
 - **Cloud Platform:** Microsoft Azure
+- **Containerization:** Docker, Kubernetes
+- **Infrastructure as Code:** Bicep, Kubernetes manifests
+- **CI/CD:** GitHub Actions (yml based pipelines for building, testing, containerizing, declaring infrastructure, uploading images to ACR, and deploying to AKS)
 
 ---
-
-## Azure Infrastructure Overview
-
-- TODO - write this and make diagram
-
----
-
 
 ## CI/CD Overview
 
-![CommerceFabric CI CD Pipeline Explained](images/CiCdPipeline.png)
+For more information, please see the [infra-platform repository](https://github.com/commercefabric/infra-platform):
+- [Technical Overview](https://github.com/CommerceFabric/infra-platform/blob/main/docs/Technical.md)
+- [Deployment Overview](https://github.com/CommerceFabric/infra-platform/blob/main/docs/DeploymentFlow.md)
 
-- The CI/CD pipeline automates the process of building, testing, and deploying individual microservices to Azure Kubernetes Service (AKS).
+### Microservice Release Sequence
 
-- When a developer pushes code to a service repository, GitHub Actions automatically builds the application, runs tests, creates a Docker image, and pushes the image to Azure Container Registry (ACR). Each image is tagged with both `latest` and the commit hash to provide traceability between deployments and source code versions.
+```mermaid
+sequenceDiagram
+    autonumber
 
-- After the image is published, a workflow dispatch event triggers the infrastructure repository, which updates the Kubernetes deployment to use the newly generated image tag. AKS then performs a rolling deployment, gradually replacing existing pods with new versions while maintaining service availability.
+    actor Developer
+    participant CI as Microservice GitHub Actions
+    participant Entra as Microsoft Entra ID
+    participant ACR as Azure Container Registry
+    participant Infra as infra-platform GitHub Actions
+    participant AKS as Azure Kubernetes Service
+    participant APIM as API Management
 
-- As the new pods start, they pull the updated image directly from ACR, pass health checks, and become active. This approach enables independent deployments for each microservice, zero-downtime releases, and a fully automated path from code commit to production.
+    Developer->>CI: Push application change
+    CI->>CI: Test application
+    CI->>CI: Build Docker image
+    CI->>Entra: Authenticate using OIDC
+    CI->>ACR: Push versioned image
+
+    CI->>Infra: Trigger deployment with service + image tag
+    Infra->>Entra: Authenticate using OIDC
+    Infra->>ACR: Verify image exists
+    Infra->>AKS: Refresh required runtime Secrets
+    Infra->>AKS: kubectl set image
+    AKS->>ACR: Pull new image
+    Infra->>AKS: Wait for rollout
+    Infra->>APIM: Reconcile API configuration
+    Infra-->>Developer: Deployment result
+```
 
 ---
 
@@ -82,8 +114,9 @@ The goal of the project is to demonstrate practical cloud-native architecture pa
 ## Future Directions
 
 - Add an Azure Front Door so it can be region balanced
-- **Add Terraform scripts** for Infrastructure as Code so the subscription + resources can be deleted when I'm not working on it to save money.
 - Add `[Authorize]` decorators to the required API methods so API methods themselves are protected (incase an attacker gains access to the internal ocelot api gateways IP) instead of relying on the auth being enforced on the external api gateway
 - Switch from AKS to ACA as it simplifies the complexity + allows for scale down to 0 to reduce costs
-- Add another AzureServiceBus topic for Order Success events, so after the product service attempts to reduce stock, it can publish an event to the Order Service to mark the order as successful (or failed).
+- Add another AzureServiceBus topic for Order Success events, so after the product service attempts to reduce stock, it can publish an event to the Order Service to mark the order as successful (or failed), and then potentially add a new payment/ shipping micro-service which can also subscribe to this message.
 - Potentially add an Azure Function to monitor the dead-letter queue and send an alert to, for example, Teams channel if messages are being sent there, so that the team can investigate and resolve issues quickly.
+- At the moment database structure is seeded in deployment through `kubernetes configmap and job manifests'`. This could be better achieved through EF Core Migrations.
+- Add an Observability stack (Prometheus, Grafana, Loki, Tempo) to monitor the health of the services and the AKS cluster.
